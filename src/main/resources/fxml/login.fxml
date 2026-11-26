@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- Login and student registration. Controller: com.classsync.controller.LoginController -->
+<HBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:id="root" fx:controller="com.classsync.controller.LoginController">
+
+    <!-- Left: brand panel over a campus photo (hidden on narrow windows). Photo + overlay are added by the controller. -->
+    <StackPane fx:id="brandPanel" prefWidth="520" minWidth="420">
+    <VBox styleClass="login-brand" spacing="22">
+        <HBox fx:id="brandRow" spacing="12" alignment="CENTER_LEFT"/>
+        <Region VBox.vgrow="ALWAYS"/>
+        <Label text="Every lecture,&#10;a complete learning unit." styleClass="h1" wrapText="true"
+               style="-fx-font-size: 34px; -fx-line-spacing: 2px;"/>
+        <Label wrapText="true" styleClass="brand-sub" style="-fx-font-size: 14px;"
+               text="Prepare before class, take part during it, and revise after — materials, quizzes, attendance, notes and doubts in one place."/>
+        <VBox fx:id="stageCards" spacing="10"/>
+        <Region VBox.vgrow="ALWAYS"/>
+        <Label styleClass="brand-sub" text="Thapar Institute of Engineering &amp; Technology · Patiala"/>
+    </VBox>
+    </StackPane>
+
+    <!-- Right: forms -->
+    <ScrollPane fitToWidth="true" fitToHeight="true" HBox.hgrow="ALWAYS" styleClass="page-scroll">
+        <StackPane styleClass="login-form-wrap">
+
+            <!-- Sign in -->
+            <VBox fx:id="loginCard" styleClass="card, login-card" spacing="16" maxHeight="-Infinity">
+                <Label text="Welcome back" styleClass="h1"/>
+                <Label text="Sign in with your college email or enrollment number." styleClass="muted" wrapText="true"/>
+
+                <VBox spacing="5">
+                    <Label text="Email or enrollment number" styleClass="field-label"/>
+                    <TextField fx:id="identifierField" promptText="name@college.edu or CS2024001"/>
+                </VBox>
+                <VBox spacing="5">
+                    <Label text="Password" styleClass="field-label"/>
+                    <StackPane>
+                        <PasswordField fx:id="passwordField" promptText="Your password"/>
+                        <TextField fx:id="passwordVisibleField" promptText="Your password" visible="false" managed="false"/>
+                    </StackPane>
+                    <CheckBox fx:id="showPasswordBox" text="Show password"/>
+                </VBox>
+
+                <Label fx:id="loginError" styleClass="field-error" wrapText="true" managed="false" visible="false"/>
+                <Label fx:id="loginInfo" styleClass="success-text" wrapText="true" managed="false" visible="false"/>
+
+                <Button fx:id="signInButton" text="Sign in" defaultButton="true" maxWidth="Infinity"
+                        styleClass="btn-primary, btn-large" onAction="#onSignIn"/>
+                <HBox alignment="CENTER" spacing="4">
+                    <Label text="New student?" styleClass="muted"/>
+                    <Hyperlink text="Create an account" onAction="#showRegister" styleClass="link"/>
+                </HBox>
+            </VBox>
+
+            <!-- Student registration -->
+            <VBox fx:id="registerCard" styleClass="card, login-card" spacing="12" visible="false" managed="false" maxHeight="-Infinity">
+                <Label text="Create student account" styleClass="h2"/>
+                <Label wrapText="true" styleClass="muted"
+                       text="Registration creates a Student account. Professor and Class Representative accounts are set up by the department."/>
+
+                <VBox spacing="5">
+                    <Label text="Full name" styleClass="field-label"/>
+                    <TextField fx:id="regName" promptText="Asha Rao"/>
+                </VBox>
+                <VBox spacing="5">
+                    <Label text="College email" styleClass="field-label"/>
+                    <TextField fx:id="regEmail" promptText="name@college.edu"/>
+                </VBox>
+                <HBox spacing="10">
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <Label text="Enrollment number" styleClass="field-label"/>
+                        <TextField fx:id="regEnrollment" promptText="CS2024001"/>
+                    </VBox>
+                    <VBox spacing="5">
+                        <Label text="Semester" styleClass="field-label"/>
+                        <ComboBox fx:id="regSemester" prefWidth="110"/>
+                    </VBox>
+                </HBox>
+                <VBox spacing="5">
+                    <Label text="Department" styleClass="field-label"/>
+                    <TextField fx:id="regDepartment" promptText="Computer Science"/>
+                </VBox>
+                <HBox spacing="10">
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <Label text="Password" styleClass="field-label"/>
+                        <PasswordField fx:id="regPassword" promptText="8+ chars, letter and digit"/>
+                    </VBox>
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <Label text="Confirm password" styleClass="field-label"/>
+                        <PasswordField fx:id="regConfirm" promptText="Repeat password"/>
+                    </VBox>
+                </HBox>
+
+                <Label fx:id="registerError" styleClass="field-error" wrapText="true" managed="false" visible="false"/>
+
+                <Button fx:id="registerButton" text="Create account" maxWidth="Infinity"
+                        styleClass="btn-primary, btn-large" onAction="#onRegister"/>
+                <HBox alignment="CENTER" spacing="4">
+                    <Label text="Already registered?" styleClass="muted"/>
+                    <Hyperlink text="Sign in" onAction="#showLogin" styleClass="link"/>
+                </HBox>
+                <padding><Insets top="24" right="32" bottom="24" left="32"/></padding>
+            </VBox>
+        </StackPane>
+    </ScrollPane>
+</HBox>

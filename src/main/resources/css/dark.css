@@ -1,0 +1,56 @@
+/* ==========================================================================
+   ClassSync dark theme — colour tokens only (component styles live in base.css).
+   Same Material Design 3 roles as light.css, mapped to dark warm surfaces; brand red is lifted so it stays
+   readable on dark backgrounds. Palette source: see light.css.
+   ========================================================================== */
+.root {
+    -cs-bg: #161112;
+    -cs-surface: #1f1718;
+    -cs-surface-2: #261d1e;
+    -cs-surface-3: #302526;
+    -cs-border: #3d2f30;
+    -cs-border-strong: #574445;
+    -cs-text: #f1dedc;
+    -cs-text-muted: #d8c2be;
+    -cs-text-faint: #a08c89;
+
+    -cs-brand: #ea1c24;
+    -cs-primary: #f04a4f;
+    -cs-primary-hover: #ff6b6f;
+    -cs-primary-soft: #4d1518;
+    -cs-primary-soft-text: #ffb4ab;
+    -cs-on-primary: #ffffff;
+    -cs-accent: #e08a6d;
+    -cs-teal: #e08a6d;
+    -cs-cyan: #4fb3e8;
+
+    -cs-success: #6fd39a;
+    -cs-success-soft: #173a26;
+    -cs-warning: #e8c26a;
+    -cs-warning-soft: #3d300f;
+    -cs-danger: #ff7fa2;
+    -cs-danger-soft: #4a1426;
+    -cs-info: #6cc4f0;
+    -cs-info-soft: #0c3247;
+    -cs-neutral-soft: #3d2f30;
+
+    -cs-sidebar: #200b0e;
+    -cs-sidebar-2: #120607;
+    -cs-sidebar-text: #d8c2be;
+    -cs-sidebar-text-active: #ffffff;
+    -cs-sidebar-active: #e3242b;
+    -cs-sidebar-hover: rgba(255, 255, 255, 0.07);
+
+    -cs-focus: #ff8a8e;
+    -cs-shadow: rgba(0, 0, 0, 0.40);
+    -cs-scrim: rgba(22, 17, 18, 0.88);
+
+    -fx-base: #2a2021;
+    -fx-background: #161112;
+    -fx-control-inner-background: #1f1718;
+    -fx-control-inner-background-alt: #261d1e;
+    -fx-accent: #f04a4f;
+    -fx-focus-color: #ff8a8e;
+    -fx-faint-focus-color: rgba(255, 138, 142, 0.20);
+    -fx-selection-bar-non-focused: #4d2528;
+}

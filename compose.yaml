@@ -1,0 +1,78 @@
+# ClassSync local environment.
+#   Everyday:   docker compose up -d postgres
+#   Build/test: docker compose --profile test run --rm build-test
+#   GUI (X11/WSLg, opt-in): docker compose --profile gui up classsync-gui
+name: classsync
+
+services:
+  postgres:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: postgres
+      # Consumed by docker/postgres-init/01-init.sh on first start (empty volume only)
+      CLASSSYNC_MIGRATOR_USER: ${CLASSSYNC_MIGRATOR_USER:-classsync_migrator}
+      CLASSSYNC_MIGRATOR_PASSWORD: ${CLASSSYNC_MIGRATOR_PASSWORD:?set CLASSSYNC_MIGRATOR_PASSWORD in .env}
+      CLASSSYNC_APP_DB_USER: ${CLASSSYNC_APP_DB_USER:-classsync_app}
+      CLASSSYNC_APP_DB_PASSWORD: ${CLASSSYNC_APP_DB_PASSWORD:?set CLASSSYNC_APP_DB_PASSWORD in .env}
+      TZ: UTC
+    ports:
+      # loopback only: the database is never exposed on the network
+      - "127.0.0.1:${DB_PORT:-5432}:5432"
+    volumes:
+      - classsync_pgdata:/var/lib/postgresql/data
+      - ./docker/postgres-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d classsync"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+
+  # Compiles the project and runs unit + integration tests against classsync_test.
+  build-test:
+    profiles: ["test"]
+    build:
+      context: .
+      target: build
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      CLASSSYNC_TEST_DB_URL: jdbc:postgresql://postgres:5432/classsync_test
+      CLASSSYNC_MIGRATOR_USER: ${CLASSSYNC_MIGRATOR_USER:-classsync_migrator}
+      CLASSSYNC_MIGRATOR_PASSWORD: ${CLASSSYNC_MIGRATOR_PASSWORD}
+      CLASSSYNC_APP_DB_USER: ${CLASSSYNC_APP_DB_USER:-classsync_app}
+      CLASSSYNC_APP_DB_PASSWORD: ${CLASSSYNC_APP_DB_PASSWORD}
+    command: ["mvn", "-B", "verify"]
+
+  # Opt-in native JavaFX GUI in a container (Linux X11 or Windows WSLg). See docs/DOCKER.md.
+  classsync-gui:
+    profiles: ["gui"]
+    build:
+      context: .
+      target: gui
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DISPLAY: ${DISPLAY:-:0}
+      WAYLAND_DISPLAY: ${WAYLAND_DISPLAY:-}
+      XDG_RUNTIME_DIR: /mnt/wslg/runtime-dir
+      PULSE_SERVER: ${PULSE_SERVER:-}
+      CLASSSYNC_DB_URL: jdbc:postgresql://postgres:5432/classsync
+      CLASSSYNC_APP_DB_USER: ${CLASSSYNC_APP_DB_USER:-classsync_app}
+      CLASSSYNC_APP_DB_PASSWORD: ${CLASSSYNC_APP_DB_PASSWORD}
+      CLASSSYNC_UPLOAD_DIR: /data/uploads
+      CLASSSYNC_TIMEZONE: ${CLASSSYNC_TIMEZONE:-Asia/Kolkata}
+    volumes:
+      # Linux/WSL: /tmp/.X11-unix. Docker Desktop on Windows: set X11_SOCKET_DIR=/run/desktop/mnt/host/wslg/.X11-unix
+      - ${X11_SOCKET_DIR:-/tmp/.X11-unix}:/tmp/.X11-unix
+      - ${WSLG_DIR:-/tmp/wslg-unused}:/mnt/wslg
+      - classsync_uploads:/data/uploads
+
+volumes:
+  classsync_pgdata:
+  classsync_uploads:

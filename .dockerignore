@@ -1,0 +1,11 @@
+.env
+*.local.properties
+application.properties
+target/
+uploads/
+backups/
+logs/
+docs/screenshots/
+.git/
+.idea/
+.vscode/

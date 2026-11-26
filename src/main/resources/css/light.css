@@ -1,0 +1,70 @@
+/* ==========================================================================
+   ClassSync light theme — colour tokens only (component styles live in base.css).
+
+   Design language: Material Design 3 (the system used by Google Classroom): tonal surfaces tinted by the
+   brand colour, container/on-container pairs for chips and badges, pill buttons and 12–16 px shapes.
+
+   Palette measured from the Thapar Institute images in /thapar images:
+     logo red            #EA1C24   brand / navigation highlight
+     3D-logo shading     #C6161C #A91A22 #97070A   primary (darker for text contrast), hover, on-container
+     courtyard shadows   #593438 #673B43           sidebar and photo overlays (deep maroon)
+     mesh facade         #B96449                    terracotta accent
+     main-building sky   #0186C6                    info / links
+     sandstone building  #FDEBC3 #BAA479            warning container, warm neutrals
+   ========================================================================== */
+.root {
+    /* surfaces (warm neutrals tinted with the brand red, like M3 surface tones) */
+    -cs-bg: #f8f3f2;
+    -cs-surface: #ffffff;
+    -cs-surface-2: #fcf7f6;
+    -cs-surface-3: #f4ebe9;
+    -cs-border: #eadcd9;
+    -cs-border-strong: #d8c2be;
+    -cs-text: #231918;
+    -cs-text-muted: #534341;
+    -cs-text-faint: #85736f;
+
+    /* brand roles */
+    -cs-brand: #ea1c24;
+    -cs-primary: #c6161c;
+    -cs-primary-hover: #a3121a;
+    -cs-primary-soft: #ffe3e0;
+    -cs-primary-soft-text: #7a0a10;
+    -cs-on-primary: #ffffff;
+    -cs-accent: #b96449;
+    -cs-teal: #b96449;
+    -cs-cyan: #0186c6;
+
+    /* status roles (hues kept apart from the brand red) */
+    -cs-success: #2e7d4f;
+    -cs-success-soft: #e2f3e8;
+    -cs-warning: #8a6416;
+    -cs-warning-soft: #fdf0d2;
+    -cs-danger: #b42355;
+    -cs-danger-soft: #fce4ec;
+    -cs-info: #01689f;
+    -cs-info-soft: #e0f1fb;
+    -cs-neutral-soft: #f0e4e2;
+
+    /* navigation drawer: deep maroon from the courtyard shadows */
+    -cs-sidebar: #3a1519;
+    -cs-sidebar-2: #23090c;
+    -cs-sidebar-text: #ecd5d3;
+    -cs-sidebar-text-active: #ffffff;
+    -cs-sidebar-active: #ea1c24;
+    -cs-sidebar-hover: rgba(255, 255, 255, 0.08);
+
+    -cs-focus: #c6161c;
+    -cs-shadow: rgba(90, 20, 24, 0.09);
+    -cs-scrim: rgba(248, 243, 242, 0.88);
+
+    /* keep built-in Modena controls (tables, combo popups, scroll bars) consistent */
+    -fx-base: #f6eeec;
+    -fx-background: #f8f3f2;
+    -fx-control-inner-background: #ffffff;
+    -fx-control-inner-background-alt: #fcf7f6;
+    -fx-accent: #c6161c;
+    -fx-focus-color: #c6161c;
+    -fx-faint-focus-color: rgba(198, 22, 28, 0.16);
+    -fx-selection-bar-non-focused: #f6d3cf;
+}

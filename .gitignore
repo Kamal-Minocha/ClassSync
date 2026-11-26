@@ -1,0 +1,18 @@
+# secrets and local config
+.env
+application.properties
+*.local.properties
+
+# build output
+target/
+
+# runtime data (uploaded files are user data — back them up, never commit them)
+uploads/*
+!uploads/.gitkeep
+backups/
+logs/
+
+# IDE
+.idea/
+.vscode/
+*.iml

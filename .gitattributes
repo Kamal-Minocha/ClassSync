@@ -1,0 +1,4 @@
+# Shell scripts mounted into Linux containers must keep LF endings
+*.sh text eol=lf
+mvnw text eol=lf
+*.cmd text eol=crlf
